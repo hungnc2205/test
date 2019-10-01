@@ -4,6 +4,7 @@ const config = require('../config/config');
 var authenticate = {};
 
 authenticate.checkPermission = function(req, res, next) {
+
     var token = req.headers['access-token'];
 
     if(!token){
