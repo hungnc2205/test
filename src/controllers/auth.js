@@ -5,6 +5,7 @@ const config = require('../config/config');
 var authController = {};
 
 authController.login = function (req, res) {
+    let user;
     dataFake.users.forEach((item)=>{
         if (req.body.username === item.username && req.body.password === item.password) {
             user = item;
