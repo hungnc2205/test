@@ -1,5 +1,5 @@
 var roleRouter = require('express').Router();
-var roleController = require('../controllers/role');
+var roleController = require('../services/role');
 var authenticate = require('../middleware/auth')
 
 roleRouter.get('/api/role', authenticate.checkPermission, roleController.findAll);
