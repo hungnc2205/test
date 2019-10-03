@@ -2,9 +2,9 @@ const dataFake = require('../config/dataFake')
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-var authController = {};
+var authService = {};
 
-authController.login = function (req, res) {
+authService.login = function (req, res) {
     let user;
     dataFake.users.forEach((item)=>{
         if (req.body.username === item.username && req.body.password === item.password) {
@@ -34,4 +34,4 @@ authController.login = function (req, res) {
 
 }
 
-module.exports = authController;
+module.exports = authService;

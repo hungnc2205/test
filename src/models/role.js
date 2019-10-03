@@ -11,7 +11,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         visibility: {
             type: DataTypes.BOOLEAN
-        }
+        },
+        createdAt: {
+            field: 'created_at',
+            type: DataTypes.DATE,
+        },
+        updatedAt: {
+            field: 'updated_at',
+            type: DataTypes.DATE,
+        },
     },{
         freezeTableName: true
     });
