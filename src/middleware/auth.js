@@ -3,11 +3,11 @@ const config = require('../config/config');
 
 var authenticate = {};
 
-authenticate.checkPermission = function(req, res, next) {
+authenticate.verify = function (req, res, next) {
 
     var token = req.headers['access-token'];
 
-    if(!token){
+    if (!token) {
         return res.status(401).json({
             message: 'Access Denied'
         });
@@ -20,7 +20,7 @@ authenticate.checkPermission = function(req, res, next) {
                 error: err,
                 message: 'Invalid token'
             })
-        } 
+        }
         req.decoded = decoded;
         next();
     });

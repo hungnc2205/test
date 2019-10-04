@@ -1,8 +1,8 @@
 var roleRouter = require('express').Router();
-var roleController = require('../services/role');
+var roleService = require('../services/role');
 var authenticate = require('../middleware/auth')
 
-roleRouter.get('/api/role', authenticate.checkPermission, roleController.findAll);
-roleRouter.post('/api/role', authenticate.checkPermission, roleController.create);
+roleRouter.get('/api/role', authenticate.verify, roleService.findAll);
+roleRouter.post('/api/role', authenticate.verify, roleService.create);
 
 module.exports = roleRouter;

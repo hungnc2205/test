@@ -1,19 +1,20 @@
-const dataFake = require('../config/dataFake')
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
+const db = require('../config/sequelize');
+const bcrypt = require('bcrypt')
 
 var authService = {};
 
-authService.login = function (req, res) {
-    let user;
-    dataFake.users.forEach((item)=>{
-        if (req.body.username === item.username && req.body.password === item.password) {
-            user = item;
-        }
-    })
+authService.login = async (req, res) => {
+
+    let user = await findByUsername(req.body.username);
 
     if (!user) {
-        return res.status(404).json({ message: "user not found !" })
+        return res.status(404).json({ message: "User not found !" })
+    }
+
+    if (!isValidPassword(req.body.password, user.password)) {
+        return res.status(404).json({ message: "Password Invalid!" })
     }
 
     const payload = {
@@ -32,6 +33,20 @@ authService.login = function (req, res) {
         token: token
     });
 
+}
+
+let findByUsername = (username) => {
+    return db.user.findOne({
+        where: {
+            username: username
+        }
+    }).then(user => {
+        return Promise.resolve(user);
+    });
+}
+
+let isValidPassword = (password, hash) => {
+    return bcrypt.compareSync(password, hash);
 }
 
 module.exports = authService;

@@ -2,15 +2,15 @@ const db = require('../config/sequelize');
 
 var roleService = {};
 
-roleService.findAll = function(req, res){
-    db.role.findAll().then(users => {
+roleService.findAll = function (req, res) {
+    db.role.findAll().then(roles => {
         return res.status(200).json({
-            data: users
+            data: roles
         })
     })
 }
 
-roleService.create = (req, res)=>{
+roleService.create = (req, res) => {
     db.role.create(req.body).then(role => {
         return res.status(200).json({
             data: role
@@ -22,6 +22,6 @@ roleService.create = (req, res)=>{
             msg: err.parent.message
         })
     });
-} 
+}
 
 module.exports = roleService;
