@@ -1,5 +1,5 @@
-var authRouter = require('express').Router();
-var authController = require('../services/auth');
+const authRouter = require('express').Router();
+const authController = require('../services/auth');
 
 authRouter.post('/login', authController.login);
 

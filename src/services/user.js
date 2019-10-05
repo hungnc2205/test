@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 
 userService = {}
 
-userService.findAll = function (req, res) {
+userService.findAll = (req, res) => {
     db.user.findAll().then(users => {
         return res.status(200).json({
             data: users
