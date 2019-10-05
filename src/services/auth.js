@@ -10,11 +10,11 @@ authService.login = async (req, res) => {
     let user = await findByUsername(req.body.username);
 
     if (!user) {
-        return res.status(404).json({ message: "User not found !" })
+        return res.status(404).json({ message: "User not found !" });
     }
 
     if (!isValidPassword(req.body.password, user.password)) {
-        return res.status(404).json({ message: "Password Invalid!" })
+        return res.status(400).json({ message: "Password Invalid!" });
     }
 
     const payload = {
@@ -26,7 +26,7 @@ authService.login = async (req, res) => {
     };
 
     let token = jwt.sign(payload, config.secret, {
-        expiresIn: 300 // expires in 1 minute
+        expiresIn: 1440 // expires in 1 day
     });
 
     res.status(200).json({
@@ -45,8 +45,6 @@ let findByUsername = (username) => {
     });
 }
 
-let isValidPassword = (password, hash) => {
-    return bcrypt.compareSync(password, hash);
-}
+let isValidPassword = (password, hash) => bcrypt.compareSync(password, hash);
 
 module.exports = authService;

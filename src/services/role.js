@@ -2,7 +2,7 @@ const db = require('../config/sequelize');
 
 var roleService = {};
 
-roleService.findAll = function (req, res) {
+roleService.findAll = (req, res) => {
     db.role.findAll().then(roles => {
         return res.status(200).json({
             data: roles

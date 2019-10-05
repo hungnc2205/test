@@ -3,13 +3,16 @@ const config = require('../config/config');
 
 var authenticate = {};
 
-authenticate.verify = function (req, res, next) {
-
-    var token = req.headers['access-token'];
+authenticate.verify = (req, res, next) => {
+    req.header("Access-Control-Allow-Origin", "*");
+    var token = req.headers.authorization.replace('Bearer ', '');
 
     if (!token) {
         return res.status(401).json({
-            message: 'Access Denied'
+            error: {
+                'name': 'JsonWebTokenRequired',
+                'message': 'required token'
+            }
         });
     }
 
@@ -18,10 +21,10 @@ authenticate.verify = function (req, res, next) {
         if (err) {
             return res.status(401).json({
                 error: err,
-                message: 'Invalid token'
             })
         }
         req.decoded = decoded;
+        console.log('=> ', decoded)
         next();
     });
 
