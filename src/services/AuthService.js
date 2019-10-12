@@ -3,9 +3,9 @@ const config = require('../config/config');
 const db = require('../config/sequelize');
 const bcrypt = require('bcrypt')
 
-var authService = {};
+var AuthService = {};
 
-authService.login = async (req, res) => {
+AuthService.login = async (req, res) => {
 
     let user = await findByUsername(req.body.username);
 
@@ -36,7 +36,7 @@ authService.login = async (req, res) => {
 }
 
 let findByUsername = (username) => {
-    return db.user.findOne({
+    return db.User.findOne({
         where: {
             username: username
         }
@@ -47,4 +47,4 @@ let findByUsername = (username) => {
 
 let isValidPassword = (password, hash) => bcrypt.compareSync(password, hash);
 
-module.exports = authService;
+module.exports = AuthService;
