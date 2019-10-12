@@ -2,28 +2,50 @@ const db = require('../config/sequelize');
 
 let UnitPriceService = {};
 
-UnitPriceService.findAll = (req, res) => {
-    db.UnitPrice.findAll().then( unitPrices => {
-        return res.status(200).json({
-            data: unitPrices
-        })
+UnitPriceService.findAll = () => {
+    return db.UnitPrice.findAll().then(unitPrices => {
+        return {
+            status: true,
+            info: unitPrices
+        }
+    }).catch(error => {
+        return {
+            status: false,
+            info: error
+        }
     });
 }
 
-UnitPriceService.create = (req, res) => {
+UnitPriceService.create = (unitPrice) => {
 
-    let unitPrice = req.body;
+    return db.UnitPrice.create(unitPrice).then(unitPrices => {
+        return {
+            status: true,
+            info: unitPrices
+        }
+    }).catch(error => {
+        return {
+            status: false,
+            info: error
+        }
+    });
+}
 
-    db.UnitPrice.create(unitPrice).then(result => {
-        return res.status(200).json({
-            data: result
-        })
-    }).catch(err => {
-        return res.status(500).json({
-            name: err.name,
-            code: err.parent.code,
-            msg: err.parent.message
-        })
+UnitPriceService.getUnitPriceLatest = () => {
+    db.UnitPrice.findAll({
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }).then(unitPrices => {
+        return {
+            status: true,
+            info: unitPrices
+        }
+    }).catch(error => {
+        return {
+            status: false,
+            info: error
+        }
     });
 }
 

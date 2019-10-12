@@ -1,12 +1,12 @@
 const db = require('../config/sequelize');
 
-var RoleService = {};
+var RoomService = {};
 
-RoleService.findAll = () => {
-    return db.Role.findAll().then(roles => {
+RoomService.findAll = (req, res) => {
+    return db.Room.findAll().then(rooms => {
         return {
             status: true,
-            info: roles
+            info: rooms
         }
     }).catch(error => {
         return {
@@ -16,18 +16,18 @@ RoleService.findAll = () => {
     });
 }
 
-RoleService.create = (role) => {
-    return db.Role.create(role).then(role => {
+RoomService.create = (room) => {
+    return db.Room.create(room).then(room => {
         return {
             status: true,
-            info: role
+            info: room
         }
     }).catch(error => {
         return {
-            status: true,
+            status: false,
             info: error
         }
     });
 }
 
-module.exports = RoleService;
+module.exports = RoomService;
