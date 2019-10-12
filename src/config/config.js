@@ -1,10 +1,10 @@
 module.exports = {
     secret: '_aA@123*',
     sequelize: {
-        database: 'apartment_db',
-        username: 'root',
-        password: '123456',
-        host: 'localhost',
+        database: 'xKT8cboKH6',
+        username: 'xKT8cboKH6',
+        password: 'CCJzr606A5',
+        host: 'remotemysql.com',
         dialect: 'mysql'
     }
 }

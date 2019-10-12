@@ -1,20 +1,16 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-var authenticate = {};
+var Authenticate = {};
 
-authenticate.verify = (req, res, next) => {
+Authenticate.verify = (req, res, next) => {
     req.header("Access-Control-Allow-Origin", "*");
-    var token = req.headers.authorization.replace('Bearer ', '');
-
-    if (!token) {
-        return res.status(401).json({
-            error: {
-                'name': 'JsonWebTokenRequired',
-                'message': 'required token'
-            }
-        });
-    }
+    var token = req.headers.authorization ? req.headers.authorization.replace('Bearer ', '') : res.status(401).json({
+        error: {
+            'name': 'JsonWebTokenRequired',
+            'message': 'required token'
+        }
+    });
 
     // verifies secret and checks if the token is expired
     jwt.verify(token, config.secret, (err, decoded) => {
@@ -30,4 +26,4 @@ authenticate.verify = (req, res, next) => {
 
 }
 
-module.exports = authenticate;
+module.exports = Authenticate;

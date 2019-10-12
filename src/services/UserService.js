@@ -1,22 +1,22 @@
 const db = require('../config/sequelize');
 const bcrypt = require('bcrypt')
 
-userService = {}
+UserService = {}
 
-userService.findAll = (req, res) => {
-    db.user.findAll().then(users => {
+UserService.findAll = (req, res) => {
+    db.User.findAll().then(users => {
         return res.status(200).json({
             data: users
         })
     })
 }
 
-userService.create = (req, res) => {
+UserService.create = (req, res) => {
 
     let user = req.body;
     user.password = hashPassword(user.password);
 
-    db.user.create(user).then(user => {
+    db.User.create(user).then(user => {
         return res.status(200).json({
             data: user
         })
@@ -31,4 +31,4 @@ let hashPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 }
 
-module.exports = userService;
+module.exports = UserService;
