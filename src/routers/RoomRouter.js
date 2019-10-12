@@ -1,8 +1,8 @@
 const RoomRouter = require('express').Router();
-const RoomService = require('../services/RoomService');
+const RoomController = require('../controllers/RoomController');
 const Authenticate = require('../middleware/AuthMiddleware')
 
-RoomRouter.get('/api/room', Authenticate.verify, RoomService.findAll);
-RoomRouter.post('/api/room', Authenticate.verify, RoomService.create);
+RoomRouter.get('/api/room', Authenticate.verify, RoomController.findAll);
+RoomRouter.post('/api/room', Authenticate.verify, RoomController.create);
 
 module.exports = RoomRouter;

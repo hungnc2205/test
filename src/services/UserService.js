@@ -3,27 +3,34 @@ const bcrypt = require('bcrypt')
 
 UserService = {}
 
-UserService.findAll = (req, res) => {
-    db.User.findAll().then(users => {
-        return res.status(200).json({
-            data: users
-        })
-    })
+UserService.findAll = () => {
+    return db.User.findAll().then(users => {
+        return {
+            status: true,
+            info: users
+        }
+    }).catch(error => {
+        return {
+            status: false,
+            info: error
+        }
+    });
 }
 
-UserService.create = (req, res) => {
+UserService.create = (user) => {
 
-    let user = req.body;
     user.password = hashPassword(user.password);
 
-    db.User.create(user).then(user => {
-        return res.status(200).json({
-            data: user
-        })
-    }).catch(err => {
-        return res.status(500).json({
-            error: err
-        })
+    return db.User.create(user).then(user => {
+        return {
+            status: true,
+            info: user
+        }
+    }).catch(error => {
+        return {
+            status: false,
+            info: error
+        }
     })
 }
 

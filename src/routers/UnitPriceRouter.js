@@ -1,9 +1,9 @@
 const UnitPriceRouter = require('express').Router();
-const UnitPriceService = require('../services/UnitPriceService');
+const UnitPriceController = require('../controllers/UnitPriceController');
 const Authenticate = require('../middleware/AuthMiddleware')
 
-UnitPriceRouter.get('/api/unit-price', Authenticate.verify, UnitPriceService.findAll);
-UnitPriceRouter.post('/api/unit-price', Authenticate.verify, UnitPriceService.create);
-UnitPriceRouter.get('/api/unit-price/latest', Authenticate.verify, UnitPriceService.getUnitPriceLatest);
+UnitPriceRouter.get('/api/unit-price', Authenticate.verify, UnitPriceController.findAll);
+UnitPriceRouter.post('/api/unit-price', Authenticate.verify, UnitPriceController.create);
+UnitPriceRouter.get('/api/unit-price/latest', Authenticate.verify, UnitPriceController.getUnitPriceLatest);
 
 module.exports = UnitPriceRouter;

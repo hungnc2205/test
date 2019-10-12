@@ -3,26 +3,30 @@ const db = require('../config/sequelize');
 var RoomService = {};
 
 RoomService.findAll = (req, res) => {
-    db.Room.findAll().then(rooms => {
-        return res.status(200).json({
-            data: rooms
-        })
-    }).catch(err => {
-        return res.status(500).json({
-            error: err
-        })
+    return db.Room.findAll().then(rooms => {
+        return {
+            status: true,
+            info: rooms
+        }
+    }).catch(error => {
+        return {
+            status: false,
+            info: error
+        }
     });
 }
 
-RoomService.create = (req, res) => {
-    db.Room.create(req.body).then(rooms => {
-        return res.status(200).json({
-            data: rooms
-        })
-    }).catch(err => {
-        return res.status(500).json({
-            error: err
-        })
+RoomService.create = (room) => {
+    return db.Room.create(room).then(room => {
+        return {
+            status: true,
+            info: room
+        }
+    }).catch(error => {
+        return {
+            status: false,
+            info: error
+        }
     });
 }
 

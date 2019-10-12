@@ -5,16 +5,12 @@ const bcrypt = require('bcrypt')
 
 var AuthService = {};
 
-AuthService.login = async (req, res) => {
+AuthService.login = async (username, password) => {
 
-    let user = await findByUsername(req.body.username);
+    let user = await getInfoByUsernamPassword(username, password);
 
     if (!user) {
-        return res.status(404).json({ message: "User not found !" });
-    }
-
-    if (!isValidPassword(req.body.password, user.password)) {
-        return res.status(400).json({ message: "Password Invalid!" });
+        return;
     }
 
     const payload = {
@@ -29,10 +25,22 @@ AuthService.login = async (req, res) => {
         expiresIn: 1440 // expires in 1 day
     });
 
-    res.status(200).json({
-        token: token
-    });
+    return token;
 
+}
+
+let getInfoByUsernamPassword = async (username, password) => {
+    let user = await findByUsername(username);
+
+    if (!user) {
+        return;
+    }
+
+    if (!isValidPassword(password, user.password)) {
+        return;
+    }
+
+    return user;
 }
 
 let findByUsername = (username) => {
