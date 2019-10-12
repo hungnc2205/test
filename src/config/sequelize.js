@@ -26,5 +26,6 @@ db.sequelize = sequelize;
 db.Role = require('../models/Role')(sequelize, Sequelize);
 db.User = require('../models/User')(sequelize, Sequelize);
 db.UnitPrice = require('../models/UnitPrice')(sequelize, Sequelize);
+db.Room = require('../models/Room')(sequelize, Sequelize);
 
 module.exports = db;
