@@ -27,4 +27,20 @@ UnitPriceService.create = (req, res) => {
     });
 }
 
+UnitPriceService.getUnitPriceLatest = (req, res) => {
+    db.UnitPrice.findAll({
+        order: [
+            ['createdAt','DESC']
+        ]
+    }).then(result => {
+        return res.status(200).json({
+            data: result[0]
+        })
+    }).catch(err => {
+        return res.status(500).json({
+           error: err
+        })
+    });
+}
+
 module.exports = UnitPriceService;
