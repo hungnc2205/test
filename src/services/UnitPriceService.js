@@ -32,10 +32,11 @@ UnitPriceService.create = (unitPrice) => {
 }
 
 UnitPriceService.getUnitPriceLatest = () => {
-    db.UnitPrice.findAll({
+    return db.UnitPrice.findAll({
         order: [
             ['createdAt', 'DESC']
-        ]
+        ],
+        raw: true
     }).then(unitPrices => {
         return {
             status: true,

@@ -1,14 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-    const Room = sequelize.define('room', {
+    const RoomInfo = sequelize.define('room_info', {
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
-            field: 'name',
-            type: DataTypes.STRING,
-            required: true
+        electricNumber: {
+            field: 'electric_number',
+            type: DataTypes.STRING
+        },
+        waterNumber: {
+            field: 'water_number',
+            type: DataTypes.STRING
         },
         createdAt: {
             field: 'created_at',
@@ -18,17 +21,17 @@ module.exports = (sequelize, DataTypes) => {
             field: 'updated_at',
             type: DataTypes.DATE,
         },
-        roomMoney: {
-            field: 'room_money',
-            type: DataTypes.STRING
+        roomId: {
+            field: 'room_id',
+            type: DataTypes.NUMBER,
         },
         roomMaster: {
-            field: 'room_master',
-            type: DataTypes.NUMBER
+            field: 'roomMaster',
+            type: DataTypes.NUMBER,
         }
     }, {
         freezeTableName: true
     });
 
-    return Room;
+    return RoomInfo;
 }
