@@ -1,5 +1,10 @@
-
 var app = require('./app');
+const uuid = require('uuid');
+
+
+app.get('/', (req, res) => {
+    res.status(200).send(`Hello, ${uuid()}!`);
+});
 
 /**
  * Start Express server.
